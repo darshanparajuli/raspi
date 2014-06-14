@@ -50,7 +50,10 @@ function write(pin, val) {
 }
 
 function read(pin) {
-  return gpio.read(pin, function(err) {
+  gpio.read(pin, function(err, value) {
     if (err) throw err;
+
+    console.log("value: ": value);
+    return value;
   });
 }
