@@ -46,6 +46,6 @@ function read(pin) {
 
     console.log("value: " + val);
     
-    socket.write(JSON.stringify({"name": "led", "value": val}));
+    socket.write(JSON.stringify({"value": val}));
   });
 }
