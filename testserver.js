@@ -1,6 +1,6 @@
 var net = require('net');
 var http = require('http');
-var gpio = require('../rpi-gpio');
+var gpio = require('rpi-gpio');
 
 var temp = false;
 
