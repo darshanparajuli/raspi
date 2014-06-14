@@ -14,9 +14,9 @@ var server = net.createServer(function(c) {
   c.on('data', function(d) {
     var data = JSON.parse(d);
 
-    if (data.value == "on") {
+    if (data.value == "true") {
       write(16, true);
-    } else if (data.value == "off") {
+    } else if (data.value == "false") {
       write(16, false);
     }
 
