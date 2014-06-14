@@ -45,14 +45,7 @@ function read(pin) {
     if (err) throw err;
 
     console.log("value: " + val);
-    var message;
-   
-    if (val) {
-      message = "turned on!";
-    } else {
-      message = "turned off!";
-    }
     
-    socket.write(JSON.stringify({"name": "led", "message": message}));
+    socket.write(JSON.stringify({"name": "led", "value": val}));
   });
 }
