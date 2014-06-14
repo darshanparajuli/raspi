@@ -17,6 +17,6 @@ var server = net.createServer(function(c) {
   });
 });
 
-server.listen(80, function() {
+server.listen(8080, function() {
   console.log('server bound');
 });
