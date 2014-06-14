@@ -1,8 +1,11 @@
 var net = require('net');
 var http = require('http');
 var gpio = require('rpi-gpio');
+var socket;
 
 var server = net.createServer(function(c) {
+  socket = c;
+  
   console.log('new client!');
 
   c.on('end', function() {
@@ -13,22 +16,10 @@ var server = net.createServer(function(c) {
   
   c.on('data', function(d) {
     var data = JSON.parse(d);
+    console.log(data.name + ": " + data.message + ", " + data.value);
     
     write(16, data.value);
-
-    var val = read(16);
-    var message;
-
-    console.log("val: " + val);
-    
-    if (val) {
-      message = "turned on!";
-    } else {
-      message = "turned off!";
-    }
-    
-    console.log(data.name + ": " + data.message + ", " + data.value);
-    c.write(JSON.stringify({"name": "led", "message": message}));
+    read(16);
   });
 });
 
@@ -50,10 +41,18 @@ function write(pin, val) {
 }
 
 function read(pin) {
-  gpio.read(pin, function(err, value) {
+  gpio.read(pin, function(err, val) {
     if (err) throw err;
 
-    console.log("value: " + value);
-    return value;
+    console.log("value: " + val);
+    var message;
+   
+    if (val) {
+      message = "turned on!";
+    } else {
+      message = "turned off!";
+    }
+    
+    socket.write(JSON.stringify({"name": "led", "message": message}));
   });
 }
