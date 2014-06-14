@@ -53,7 +53,7 @@ function read(pin) {
   gpio.read(pin, function(err, value) {
     if (err) throw err;
 
-    console.log("value: ": value);
+    console.log("value: " + value);
     return value;
   });
 }
