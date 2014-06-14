@@ -16,6 +16,7 @@ var server = net.createServer(function(c) {
 
     if (data.value == "true") {
       write(16, true);
+      console.log("test");
     } else if (data.value == "false") {
       write(16, false);
     }
