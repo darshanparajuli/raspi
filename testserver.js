@@ -13,17 +13,13 @@ var server = net.createServer(function(c) {
   
   c.on('data', function(d) {
     var data = JSON.parse(d);
-
-    if (data.value == true) {
-      write(16, true);
-      console.log("test");
-    } else if (data.value == false) {
-      write(16, false);
-      console.log("test2");
-    }
+    
+    write(16, data.value);
 
     var val = read(16);
     var message;
+
+    console.log("val: " + val);
     
     if (val) {
       message = "turned on!";
