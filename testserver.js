@@ -19,6 +19,7 @@ var server = net.createServer(function(c) {
       console.log("test");
     } else if (data.value == "false") {
       write(16, false);
+      console.log("test2");
     }
 
     var val = read(16);
