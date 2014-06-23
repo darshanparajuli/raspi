@@ -27,10 +27,6 @@ server.listen(8080, function() {
   console.log('server bound');
 });
 
-gpio.on('change', function(channel, value) {
-  console.log('Channel ' + channel + ' value is now ' + value);
-});
-
 gpio.setup(16, gpio.DIR_OUT);
 
 function write(pin, val) {
@@ -43,9 +39,7 @@ function write(pin, val) {
 function read(pin) {
   gpio.read(pin, function(err, val) {
     if (err) throw err;
-
     console.log("value: " + val);
-    
     socket.write(JSON.stringify({"value": val}));
   });
 }
