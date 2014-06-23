@@ -27,6 +27,10 @@ server.listen(8080, function() {
   console.log('server bound');
 });
 
+gpio.on('export', function(channel) {
+    console.log('Channel set: ' + channel);
+});
+
 gpio.on('change', function(channel, value) {
   console.log('Channel ' + channel + ' value is now ' + value);
 });
