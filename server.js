@@ -3,6 +3,8 @@ var http = require('http');
 var gpio = require('rpi-gpio');
 var socket;
 
+var pin = 16;
+
 var server = net.createServer(function(c) {
   socket = c;
   
@@ -18,8 +20,8 @@ var server = net.createServer(function(c) {
     var data = JSON.parse(d);
     console.log(data.name + ": " + data.message + ", " + data.value);
     
-    write(16, data.value);
-    read(16);
+    write(pin, data.value);
+    read(pin);
   });
 });
 
@@ -27,7 +29,7 @@ server.listen(8080, function() {
   console.log('server bound');
 });
 
-gpio.setup(16, gpio.DIR_OUT);
+gpio.setup(pin, gpio.DIR_OUT);
 
 function write(pin, val) {
   gpio.write(pin, val, function(err) {
