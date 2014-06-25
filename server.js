@@ -31,6 +31,7 @@ server.listen(8080, function() {
 
 gpio.setup(pin, gpio.DIR_OUT);
 
+
 function write(pin, val) {
   gpio.write(pin, val, function(err) {
     if (err) throw err;
