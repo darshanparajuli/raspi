@@ -1,6 +1,9 @@
 var net = require('net');
 var http = require('http');
 var gpio = require('rpi-gpio');
+
+// add json validating functionality
+
 var socket;
 
 var pin = 16;
