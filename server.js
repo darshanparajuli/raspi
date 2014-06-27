@@ -28,16 +28,21 @@ var server = net.createServer(function(c) {
 
   c.setEncoding('utf8');
   
-  c.on('data', function(d) {   
-    var data = JSON.parse(d);
-    
-    console.log(data.id + ": " + data.type + ", " + data.pin + ", " + data.value);
+  c.on('data', function(d) {
+    try {
+      var data = JSON.parse(d);
+      
+      console.log(data.id + ": " + data.type + ", " + data.pin + ", " + data.value);
 
-    if (data.type == "change") {
-      write(pin, data.value);
-      read(pin);
-    } else if (data.type == "status") {
-      read(pin);
+      if (data.type == "change") {
+        write(pin, data.value);
+        read(pin);
+      } else if (data.type == "status") {
+        read(pin);
+      }
+
+    } catch (err) {
+      console.log(err);
     }
   });
 });
