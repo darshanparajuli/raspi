@@ -1,5 +1,6 @@
 var net = require('net');
 var gpio = require('rpi-gpio');
+var validateJSON = require('jsonschema').validate;
 
 // add json validating functionality
 
@@ -11,6 +12,8 @@ var server = net.createServer(function(c) {
   socket = c;
   
   console.log('new client!');
+
+  console.log(validateJSON(4, {"type": "number"}));
 
   c.on('end', function() {
     console.log('client disconnected!');
