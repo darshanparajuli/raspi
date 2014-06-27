@@ -30,12 +30,14 @@ var server = net.createServer(function(c) {
 
   c.setEncoding('utf8');
   
-  c.on('data', function(d) {   
+  c.on('data', function(d) {
+    console.log(validateJSON(d, schema));
+    
     var data = JSON.parse(d);
     
     console.log(data.id + ": " + data.type + ", " + data.pin + ", " + data.value);
 
-    console.log(validateJSON(schema, data));
+   
     
     if (data.type == "change") {
       write(pin, data.value);
