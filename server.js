@@ -4,6 +4,15 @@ var validateJSON = require('jsonschema').validate;
 
 // add json validating functionality
 
+var schema = {
+  "properties": {
+    "id": {"type": "string"},
+    "type": {"type": "string"},
+    "pin": {"type": "number"},
+    "value": {"type": "boolean"}
+  }
+};
+
 var socket;
 
 var pin = 16;
@@ -13,7 +22,7 @@ var server = net.createServer(function(c) {
   
   console.log('new client!');
 
-  console.log(validateJSON(4, {"type": "number"}));
+  
 
   c.on('end', function() {
     console.log('client disconnected!');
@@ -21,10 +30,13 @@ var server = net.createServer(function(c) {
 
   c.setEncoding('utf8');
   
-  c.on('data', function(d) {
+  c.on('data', function(d) {   
     var data = JSON.parse(d);
-    console.log(data.id + ": " + data.pin + ", " + data.value);
+    
+    console.log(data.id + ": " + data.type + ", " + data.pin + ", " + data.value);
 
+    console.log(validateJSON(schema, data));
+    
     if (data.type == "change") {
       write(pin, data.value);
       read(pin);
