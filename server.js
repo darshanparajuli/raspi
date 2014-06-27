@@ -22,24 +22,17 @@ var server = net.createServer(function(c) {
   
   console.log('new client!');
 
-  
-
   c.on('end', function() {
     console.log('client disconnected!');
   })
 
   c.setEncoding('utf8');
   
-  c.on('data', function(d) {
-    console.log(validateJSON(d, schema));
-    
-    //var data = JSON.parse(d);
-    var data = d;
+  c.on('data', function(d) {   
+    var data = JSON.parse(d);
     
     console.log(data.id + ": " + data.type + ", " + data.pin + ", " + data.value);
 
-   
-    
     if (data.type == "change") {
       write(pin, data.value);
       read(pin);
