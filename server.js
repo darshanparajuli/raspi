@@ -30,6 +30,8 @@ var server = net.createServer(function(c) {
   
   c.on('data', function(d) {
     try {
+
+      d += "}}";
       var data = JSON.parse(d);
       
       console.log(data.id + ": " + data.type + ", " + data.pin + ", " + data.value);
@@ -42,7 +44,7 @@ var server = net.createServer(function(c) {
       }
 
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
     }
   });
 });
