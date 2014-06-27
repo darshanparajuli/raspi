@@ -31,7 +31,7 @@ var server = net.createServer(function(c) {
   c.setEncoding('utf8');
   
   c.on('data', function(d) {
-    console.log(validateJSON(d, schema));
+    console.log(validateJSON({"id": 1, "type": "s", "pin": "p", "value": 1}, schema));
     
     var data = JSON.parse(d);
     
