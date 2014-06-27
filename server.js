@@ -13,7 +13,7 @@ var server = net.createServer(function(c) {
   
   console.log('new client!');
 
-  console.log(validateJSON("as", {"type": "number"}));
+  console.log(validateJSON(4, {"type": "number"}));
 
   c.on('end', function() {
     console.log('client disconnected!');
