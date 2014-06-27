@@ -13,12 +13,12 @@ var schema = {
   }
 };
 
-var socket;
+var sockets = [];
 
 var pin = 16;
 
 var server = net.createServer(function(c) {
-  socket = c;
+  sockets.push(c);
   
   console.log('new client!');
 
@@ -30,8 +30,6 @@ var server = net.createServer(function(c) {
   
   c.on('data', function(d) {
     try {
-
-      d += "}}";
       var data = JSON.parse(d);
       
       console.log(data.id + ": " + data.type + ", " + data.pin + ", " + data.value);
@@ -66,6 +64,7 @@ function read(pin) {
   gpio.read(pin, function(err, val) {
     if (err) throw err;
     console.log("value: " + val);
-    socket.write(JSON.stringify({"pin": pin, "value": val}));
+    for (var i = 0; i < sockets.length; i++)
+      sockets[i].write(JSON.stringify({"pin": pin, "value": val}));
   });
 }
