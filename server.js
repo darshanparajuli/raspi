@@ -44,7 +44,7 @@ var server = net.createServer(function(c) {
       }
 
     } catch (err) {
-      console.log(err.message);
+      console.log(err);
     }
   });
 });
