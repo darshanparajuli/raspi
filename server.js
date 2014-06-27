@@ -20,10 +20,14 @@ var server = net.createServer(function(c) {
   
   c.on('data', function(d) {
     var data = JSON.parse(d);
-    console.log(data.name + ": " + data.message + ", " + data.value);
-    
-    write(pin, data.value);
-    read(pin);
+    console.log(data.id + ": " + data.pin + ", " + data.value);
+
+    if (data.type == "change") {
+      write(pin, data.value);
+      read(pin);
+    } else if (data.type == "status") {
+      read(pin);
+    }
   });
 });
 
@@ -44,6 +48,6 @@ function read(pin) {
   gpio.read(pin, function(err, val) {
     if (err) throw err;
     console.log("value: " + val);
-    socket.write(JSON.stringify({"value": val}));
+    socket.write(JSON.stringify({"pin": pin, "value": val}));
   });
 }
