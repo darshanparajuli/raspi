@@ -1,17 +1,5 @@
 var net = require('net');
 var gpio = require('rpi-gpio');
-var validateJSON = require('jsonschema').validate;
-
-// add json validating functionality
-
-var schema = {
-  "properties": {
-    "id": {"type": "string"},
-    "type": {"type": "string"},
-    "pin": {"type": "number"},
-    "value": {"type": "boolean"}
-  }
-};
 
 var sockets = [];
 
